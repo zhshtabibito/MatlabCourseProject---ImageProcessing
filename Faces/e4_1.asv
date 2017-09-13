@@ -1,0 +1,25 @@
+L=3;
+shift=8-L;
+v=zeros(1,2^(3*L));
+for cntFace=1:33
+    u=zeros(1,2^(3*L));
+    filename=strcat(num2str(cntFace),'.bmp');
+    face=imread(filename);
+    [xLen,yLen,~]=size(face);
+    for x=1:xLen
+        for y=1:yLen
+            R=face(x,y,1);
+            R=bitshift(R,-shift);
+            G=bitshift(face(x,y,2),-shift);
+            B=bitshift(face(x,y,3),-shift);
+            n=bitshift(R,2*L)+bitshift(G,L)+B;
+            u(n)=u(n)+1;
+        end
+    end
+    u=u./(xLen*yLen);
+    v=v+u;
+end
+v=v./33;
+            
+            
+            
